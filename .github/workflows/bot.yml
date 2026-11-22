@@ -1,0 +1,44 @@
+name: Bot Dolar
+
+on:
+  schedule:
+    - cron: "7 * * * *"   # cada hora, al minuto 7 (hora UTC)
+  workflow_dispatch:       # permite correrlo a mano para probar
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bot-dolar
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Ejecutar bot
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+        run: python bot.py
+
+      - name: Guardar ultimo dato
+        run: |
+          if [ -n "$(git status --porcelain ultimo_dato.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add ultimo_dato.json
+            git commit -m "Actualizar ultimo dato"
+            git push
+          fi
