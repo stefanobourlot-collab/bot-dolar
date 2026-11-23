@@ -1,1 +1,14 @@
-{"dolar": "1550-1600", "dolar_venta": 1600, "riesgo": 1070}
+{
+  "dolar": "1550-1600",
+  "dolar_venta": 1600,
+  "riesgo": 1070,
+  "publicado": {
+    "oficial": 1600.0,
+    "blue": 1675.0,
+    "bolsa": 1743.1,
+    "contadoconliqui": 1806.2,
+    "cripto": 1768.96,
+    "riesgo": 1070.0
+  },
+  "ultimo_tweet": "2026-11-23T15:36:39.924494-03:00"
+}
