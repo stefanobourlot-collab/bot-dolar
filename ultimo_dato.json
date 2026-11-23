@@ -7,8 +7,17 @@
     "blue": 1675.0,
     "bolsa": 1743.1,
     "contadoconliqui": 1806.2,
-    "cripto": 1768.96,
+    "cripto": 1769.79,
     "riesgo": 1070.0
   },
-  "ultimo_tweet": "2026-11-23T15:36:39.924494-03:00"
+  "ultimo_tweet": "2026-11-23T20:35:07.888239-03:00",
+  "cierre_anterior": {
+    "oficial": 1600.0,
+    "blue": 1675.0,
+    "bolsa": 1743.1,
+    "contadoconliqui": 1806.2,
+    "cripto": 1769.79,
+    "riesgo": 1070.0
+  },
+  "resumen_fecha": "2026-11-23"
 }
