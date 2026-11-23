@@ -29,6 +29,9 @@ CASAS = {
 }
 RIESGO = ("📊", "Riesgo país")
 
+HASHTAGS_HORARIO = "#Dólar #DólarBlue"          # tweet horario ("" para no poner)
+HASHTAGS_RESUMEN = "#Dólar #DólarBlue #RiesgoPaís"  # resumen de cierre
+
 UMBRAL_PCT = 0.5               # variación mínima (%) para mostrar flecha y publicar
 MIN_HORAS_ENTRE_TWEETS = 2     # separación mínima entre tweets "normales"
 HORA_RESUMEN = 19              # hora argentina del resumen de cierre
@@ -106,6 +109,10 @@ def flecha(p):
     return "🔼" if p > 0 else "🔽"
 
 
+def agregar_hashtags(texto, hashtags):
+    return f"{texto}\n\n{hashtags}" if hashtags else texto
+
+
 def tweet_horario(precios, publicado):
     """Todos los precios; flecha solo en los que se movieron más que el umbral."""
     lineas = ["💱 Cotizaciones"]
@@ -121,7 +128,7 @@ def tweet_horario(precios, publicado):
                 linea += f" {flecha(p)}"
                 hay_cambio = True
         lineas.append(linea)
-    return "\n".join(lineas), hay_cambio
+    return agregar_hashtags("\n".join(lineas), HASHTAGS_HORARIO), hay_cambio
 
 
 def tweet_resumen(precios, cierre):
@@ -141,7 +148,7 @@ def tweet_resumen(precios, cierre):
             else:
                 linea += " ➖ 0,00%"
         lineas.append(linea)
-    return "\n".join(lineas), hay_variacion
+    return agregar_hashtags("\n".join(lineas), HASHTAGS_RESUMEN), hay_variacion
 
 
 # ---------- X ----------
