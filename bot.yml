@@ -2,7 +2,7 @@ name: Bot Dolar
 
 on:
   schedule:
-    - cron: "7 13-21 * * 1-5"  # cada hora, al minuto 7 (hora UTC)
+    - cron: "7 13-22 * * 1-5"  # cada hora, al minuto 7 (hora UTC)
   workflow_dispatch:       # permite correrlo a mano para probar
 
 permissions:
