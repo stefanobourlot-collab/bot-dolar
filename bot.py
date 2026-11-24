@@ -168,6 +168,7 @@ def publicar_tweet(texto):
             raise SystemExit(1)
 
 
+
 # ---------- lógica principal ----------
 def main():
     ahora = datetime.now(TZ)
