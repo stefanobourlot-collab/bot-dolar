@@ -3,14 +3,14 @@
   "dolar_venta": 1600,
   "riesgo": 1070,
   "publicado": {
-    "oficial": 1600.0,
-    "blue": 1675.0,
-    "bolsa": 1743.1,
-    "contadoconliqui": 1806.2,
-    "cripto": 1769.79,
-    "riesgo": 1070.0
+    "oficial": 1615.0,
+    "blue": 1690.0,
+    "bolsa": 1691.8,
+    "contadoconliqui": 1793.3,
+    "cripto": 1790.18,
+    "riesgo": 1035.0
   },
-  "ultimo_tweet": "2026-11-23T20:35:07.888239-03:00",
+  "ultimo_tweet": "2026-11-24T14:30:35.289572-03:00",
   "cierre_anterior": {
     "oficial": 1600.0,
     "blue": 1675.0,
