@@ -163,9 +163,9 @@ def publicar_tweet(texto):
         response = client.create_tweet(text=texto)
         print(f"✅ Tweet publicado: {response.data['id']}")
         return True
-    except Exception as e:
-        print(f"❌ Error publicando: {e}")
-        return False
+        except Exception as e:
+            print(f"❌ Error publicando: {e}")
+            raise SystemExit(1)
 
 
 # ---------- lógica principal ----------
