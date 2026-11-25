@@ -62,6 +62,52 @@ def guardar_estado(estado):
 
 
 # ---------- datos ----------
+def a_numero(texto):
+    """Convierte '1.094,50' / '1094.5' / 1094 en float."""
+    t = str(texto).strip()
+    if "," in t:
+        t = t.replace(".", "").replace(",", ".")
+    elif t.count(".") == 1 and len(t.split(".")[1]) == 3:
+        t = t.replace(".", "")
+    return float(t)
+
+
+def riesgo_ambito():
+    """Riesgo país en vivo (Ámbito, API no oficial). Devuelve None si falla."""
+    try:
+        r = requests.get(
+            "https://mercados.ambito.com//riesgopais/variacion",
+            headers={"User-Agent": "Mozilla/5.0"},
+            timeout=10,
+        )
+        r.raise_for_status()
+        data = r.json()
+        print(f"Riesgo país Ámbito (respuesta): {str(data)[:200]}")
+        return a_numero(data["valor"])
+    except Exception as e:
+        print(f"Riesgo país Ámbito falló: {e}")
+        return None
+
+
+def riesgo_argentinadatos():
+    """Respaldo: solo se usa si el dato es de hoy (suele venir con 1 día de atraso)."""
+    try:
+        r = requests.get(
+            "https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo",
+            timeout=10,
+        )
+        r.raise_for_status()
+        data = r.json()
+        fecha = str(data.get("fecha", ""))[:10]
+        if RIESGO_SOLO_SI_ES_DE_HOY and fecha != datetime.now(TZ).date().isoformat():
+            print(f"Riesgo país desactualizado (dato del {fecha}). Se omite.")
+            return None
+        return float(data["valor"])
+    except Exception as e:
+        print(f"Error riesgo país: {e}")
+        return None
+
+
 def obtener_precios():
     precios = {}
     try:
@@ -77,21 +123,9 @@ def obtener_precios():
         if clave not in precios:
             print(f"Aviso: no llegó la cotización de '{clave}'")
 
-    try:
-        r = requests.get(
-            "https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo",
-            timeout=10,
-        )
-        r.raise_for_status()
-        data = r.json()
-        fecha = str(data.get("fecha", ""))[:10]
-        hoy = datetime.now(TZ).date().isoformat()
-        if RIESGO_SOLO_SI_ES_DE_HOY and fecha != hoy:
-            print(f"Riesgo país desactualizado (dato del {fecha}). Se omite.")
-        else:
-            precios["riesgo"] = float(data["valor"])
-    except Exception as e:
-        print(f"Error riesgo país: {e}")
+    riesgo = riesgo_ambito() or riesgo_argentinadatos()
+    if riesgo is not None:
+        precios["riesgo"] = riesgo
     return precios
 
 
