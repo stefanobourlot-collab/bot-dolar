@@ -32,6 +32,10 @@ RIESGO = ("📊", "Riesgo país")
 HASHTAGS_HORARIO = "#Dólar #DólarBlue"          # tweet horario ("" para no poner)
 HASHTAGS_RESUMEN = "#Dólar #DólarBlue #RiesgoPaís"  # resumen de cierre
 
+# El riesgo país de argentinadatos se actualiza con retraso (suele traer el cierre
+# del día anterior). Con True, solo se publica si el dato es de HOY.
+RIESGO_SOLO_SI_ES_DE_HOY = True
+
 UMBRAL_PCT = 0.5               # variación mínima (%) para mostrar flecha y publicar
 MIN_HORAS_ENTRE_TWEETS = 2     # separación mínima entre tweets "normales"
 HORA_RESUMEN = 19              # hora argentina del resumen de cierre
@@ -79,7 +83,13 @@ def obtener_precios():
             timeout=10,
         )
         r.raise_for_status()
-        precios["riesgo"] = float(r.json()["valor"])
+        data = r.json()
+        fecha = str(data.get("fecha", ""))[:10]
+        hoy = datetime.now(TZ).date().isoformat()
+        if RIESGO_SOLO_SI_ES_DE_HOY and fecha != hoy:
+            print(f"Riesgo país desactualizado (dato del {fecha}). Se omite.")
+        else:
+            precios["riesgo"] = float(data["valor"])
     except Exception as e:
         print(f"Error riesgo país: {e}")
     return precios
