@@ -4,20 +4,20 @@
   "riesgo": 1070,
   "publicado": {
     "oficial": 1625.0,
-    "blue": 1700.0,
-    "bolsa": 1672.3,
+    "blue": 1710.0,
+    "bolsa": 1666.4,
     "contadoconliqui": 1767.9,
-    "cripto": 1770.46,
+    "cripto": 1752.96,
     "riesgo": 1067.0
   },
-  "ultimo_tweet": "2026-11-26T11:58:47.360705-03:00",
+  "ultimo_tweet": "2026-11-26T20:43:26.516414-03:00",
   "cierre_anterior": {
-    "oficial": 1630.0,
+    "oficial": 1625.0,
     "blue": 1710.0,
-    "bolsa": 1688.7,
+    "bolsa": 1666.4,
     "contadoconliqui": 1767.9,
-    "cripto": 1762.53,
-    "riesgo": 1035.0
+    "cripto": 1752.96,
+    "riesgo": 1067.0
   },
-  "resumen_fecha": "2026-11-25"
+  "resumen_fecha": "2026-11-26"
 }
