@@ -83,7 +83,7 @@ def riesgo_ambito():
         r.raise_for_status()
         data = r.json()
         print(f"Riesgo país Ámbito (respuesta): {str(data)[:200]}")
-        return a_numero(data["valor"])
+        return a_numero(data.get("ultimo", data.get("valor")))
     except Exception as e:
         print(f"Riesgo país Ámbito falló: {e}")
         return None
