@@ -209,6 +209,9 @@ def publicar_tweet(texto):
         return True
     except Exception as e:
         print(f"❌ Error publicando: {e}")
+        respuesta = getattr(e, "response", None)
+        if respuesta is not None:
+            print(f"Detalle de X (código {respuesta.status_code}): {respuesta.text[:500]}")
         raise SystemExit(1)
 
 
